@@ -197,9 +197,6 @@
     <ClCompile Include="src\string_id.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\tstring_view.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\codepoint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
