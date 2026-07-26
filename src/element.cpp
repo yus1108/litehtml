@@ -1,3 +1,8 @@
+// Modified by yus1108 for LiteQuickUI integration
+// Original file: litehtml/src/element.cpp
+// Changes:
+// - Added a custom data member to store event handlers for elements.
+
 #include "html.h"
 #include "element.h"
 #include "document.h"
@@ -296,6 +301,16 @@ bool element::is_block_formatting_context() const
 		return true;
 	}
 	return false;
+}
+
+void element::set_custom_data(const std::shared_ptr<void*>& data) 
+{
+	m_custom_data = data;
+}
+
+std::shared_ptr<void*> element::get_custom_data() const
+{
+	return m_custom_data;
 }
 
 litehtml::string litehtml::element::get_counter_value(const string& counter_name)
