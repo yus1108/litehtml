@@ -1,4 +1,4 @@
-// Modified by yus1108
+﻿// Modified by yus1108
 // Original file: litehtml/include/litehtml/element.h
 // Changes:
 // - Added a custom data member to store event handlers for elements.
@@ -43,7 +43,7 @@ namespace litehtml
 
 	private:
 		std::map<string_id, int>	m_counter_values;
-		std::shared_ptr<void*>		m_custom_data; // for storing custom data, e.g. event handlers
+		std::shared_ptr<void>		m_custom_data; // for storing custom data, e.g. event handlers
 
 	public:
 		explicit element(const std::shared_ptr<document>& doc);
@@ -156,8 +156,8 @@ namespace litehtml
 
 		void				run_on_renderers(const std::function<bool(const std::shared_ptr<render_item>&)>& func);
 
-		void					set_custom_data(const std::shared_ptr<void*>& data);
-		std::shared_ptr<void*>	get_custom_data() const;
+		void					set_custom_data(const std::shared_ptr<void>& data);
+		std::shared_ptr<void>	get_custom_data() const;
 
 	private:
 		std::vector<element::ptr> get_siblings_before() const;

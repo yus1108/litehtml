@@ -1,4 +1,4 @@
-// Modified by yus1108 for LiteQuickUI integration
+﻿// Modified by yus1108 for LiteQuickUI integration
 // Original file: litehtml/src/element.cpp
 // Changes:
 // - Added a custom data member to store event handlers for elements.
@@ -303,12 +303,12 @@ bool element::is_block_formatting_context() const
 	return false;
 }
 
-void element::set_custom_data(const std::shared_ptr<void*>& data) 
+void element::set_custom_data(const std::shared_ptr<void>& data) 
 {
 	m_custom_data = data;
 }
 
-std::shared_ptr<void*> element::get_custom_data() const
+std::shared_ptr<void> element::get_custom_data() const
 {
 	return m_custom_data;
 }
