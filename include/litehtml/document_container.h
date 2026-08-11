@@ -1,3 +1,9 @@
+﻿// Modified by yus1108
+// Original file: litehtml/include/litehtml/document_container.h
+// Changes:
+// - Added a new method 'create_document' to the 'document_container' class. This method is called when a new
+// document is created, allowing for custom initialization or setup of the document.
+
 #ifndef LH_DOCUMENT_CONTAINER_H
 #define LH_DOCUMENT_CONTAINER_H
 
@@ -70,6 +76,7 @@ namespace litehtml
 		virtual void				get_language(litehtml::string& language, litehtml::string& culture) const = 0;
 		virtual litehtml::string	resolve_color(const litehtml::string& /*color*/) const { return litehtml::string(); }
 		virtual void				split_text(const char* text, const std::function<void(const char*)>& on_word, const std::function<void(const char*)>& on_space);
+		virtual void				create_document(const std::shared_ptr<litehtml::document>& doc) = 0;
 
 	protected:
 		virtual ~document_container() = default;

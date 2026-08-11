@@ -1,3 +1,8 @@
+﻿// Modified by yus1108
+// Original file: litehtml/src/document.cpp
+// Changes:
+// - Called create_document() on the container when a document is created.
+
 #include "html.h"
 #include "document.h"
 #include "stylesheet.h"
@@ -56,6 +61,7 @@ document::ptr document::createFromString(
 {
 	// Create litehtml::document
 	document::ptr doc = make_shared<document>(container);
+	doc->container()->create_document(doc);
 
 	// Parse document into GumboOutput
 	GumboOutput* output = doc->parse_html(str);
