@@ -2,6 +2,7 @@
 // Original file: litehtml/src/document.cpp
 // Changes:
 // - Called create_document() on the container when a document is created.
+// - Added refresh_styles() method to refresh styles on an element and its children.
 
 #include "html.h"
 #include "document.h"
@@ -1159,6 +1160,24 @@ void document::dump(dumper& cout)
 	{
 		m_root_render->dump(cout);
 	}
+}
+
+void document::refresh_styles(std::shared_ptr<element>& element)
+{
+	// reset the previous used styles for the element and its children
+	element->reset_used_styles();
+
+	// apply master CSS
+	element->apply_stylesheet(m_master_css);
+
+	// Apply parsed styles.
+	element->apply_stylesheet(m_styles);
+
+	// Apply user styles if any
+	element->apply_stylesheet(m_user_css);
+
+	// Initialize element::m_css
+	element->compute_styles();
 }
 
 } // namespace litehtml

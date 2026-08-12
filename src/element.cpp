@@ -2,6 +2,7 @@
 // Original file: litehtml/src/element.cpp
 // Changes:
 // - Added a custom data member to store event handlers for elements.
+// - Added a method to reset used styles for an element and its children.
 
 #include "html.h"
 #include "element.h"
@@ -310,7 +311,15 @@ void element::set_custom_data(const std::shared_ptr<void>& data)
 
 std::shared_ptr<void> element::get_custom_data() const
 {
-	return m_custom_data;
+	return m_custom_data; }
+
+void element::reset_used_styles(void) 
+{ 
+	m_used_styles.clear();
+	for(const auto& el : m_children)
+	{
+		el->reset_used_styles();
+	}
 }
 
 litehtml::string litehtml::element::get_counter_value(const string& counter_name)

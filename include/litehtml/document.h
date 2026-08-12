@@ -1,3 +1,8 @@
+﻿// Modified by yus1108
+// Original file: litehtml/include/litehtml/document.h
+// Changes:
+// - Added refresh_styles() method to refresh styles on an element and its children.
+
 #ifndef LH_DOCUMENT_H
 #define LH_DOCUMENT_H
 
@@ -107,6 +112,14 @@ namespace litehtml
 
 		void							append_children_from_string(element& parent, const char* str, bool replace_existing);
 		void							dump(dumper& cout);
+
+		// Note: partial refresh of styles on an element and its children is ONLY safe
+		// if the parent or an ancestor of the element is not changing its styles depending on the element's styles. 
+		// If the parent or ancestor is changing its styles, then a full refresh of styles should be performed instead.
+		// For example, the current version of litehtml does not support the :has() pseudo-class, so if a parent element
+		// has a style that depends on whether it has a child with a certain class, then changing the class of the child
+		// would require a full refresh of styles on the parent and its children.
+		void							refresh_styles(std::shared_ptr<element>& element);
 
 		// see doc/document_createFromString.txt
 		static document::ptr  createFromString(

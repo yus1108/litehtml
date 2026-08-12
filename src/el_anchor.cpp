@@ -1,3 +1,8 @@
+﻿// Modified by yus1108
+// Original file: litehtml/src/el_anchor.cpp
+// Changes:
+// - Modified adding pseudo-class in el_anchor::apply_stylesheet() to avoid duplicate pseudo-class addition.
+
 #include "el_anchor.h"
 #include "document.h"
 #include "document_container.h"
@@ -20,7 +25,7 @@ void litehtml::el_anchor::apply_stylesheet( const litehtml::css& stylesheet )
 {
 	if( get_attr("href") )
 	{
-		m_pseudo_classes.push_back(_link_);
+		set_pseudo_class(_link_, true);
 	}
 	html_tag::apply_stylesheet(stylesheet);
 }

@@ -2,6 +2,7 @@
 // Original file: litehtml/include/litehtml/element.h
 // Changes:
 // - Added a custom data member to store event handlers for elements.
+// - Added a method to reset used styles for an element and its children.
 
 #ifndef LH_ELEMENT_H
 #define LH_ELEMENT_H
@@ -158,6 +159,8 @@ namespace litehtml
 
 		void					set_custom_data(const std::shared_ptr<void>& data);
 		std::shared_ptr<void>	get_custom_data() const;
+
+		void reset_used_styles();
 
 	private:
 		std::vector<element::ptr> get_siblings_before() const;
