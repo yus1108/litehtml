@@ -1,3 +1,8 @@
+﻿// Modified by yus1108
+// Original file: litehtml/include/litehtml/style.h
+// Changes:
+// - Added a new method 'has_properties' to check if the style has any properties defined.
+
 #ifndef LH_STYLE_H
 #define LH_STYLE_H
 
@@ -57,6 +62,7 @@ namespace litehtml
 		void add_property(string_id name, const string& val,              const string& baseurl = "", bool important = false, document_container* container = nullptr);
 
 		const property_value& get_property(string_id name) const;
+		bool				  has_properties() const { return m_properties.empty() == false; }
 
 		void combine(const style& src);
 		void clear()
