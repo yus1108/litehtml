@@ -2,6 +2,8 @@
 // Original file: litehtml/include/litehtml/style.h
 // Changes:
 // - Added a new method 'has_properties' to check if the style has any properties defined.
+// - Added a new method 'get_property_count' to get the number of properties defined in the style.
+// - Added new methods 'begin' and 'end' to provide iterators for the properties map, allowing for range-based for loops and other STL algorithms to be used with the style properties.
 
 #ifndef LH_STYLE_H
 #define LH_STYLE_H
@@ -63,6 +65,11 @@ namespace litehtml
 
 		const property_value& get_property(string_id name) const;
 		bool				  has_properties() const { return m_properties.empty() == false; }
+		size_t				  get_property_count() const { return m_properties.size(); }
+		props_map::iterator	  begin() { return m_properties.begin(); }
+		props_map::iterator	  end() { return m_properties.end(); }
+		props_map::const_iterator begin() const { return m_properties.begin(); }
+		props_map::const_iterator end() const { return m_properties.end(); }
 
 		void combine(const style& src);
 		void clear()
