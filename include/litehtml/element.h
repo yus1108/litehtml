@@ -3,6 +3,7 @@
 // Changes:
 // - Added a custom data member to store event handlers for elements.
 // - Added a method to reset used styles for an element and its children.
+// - Added a method to clear render data for an element and its children.
 
 #ifndef LH_ELEMENT_H
 #define LH_ELEMENT_H
@@ -139,6 +140,7 @@ namespace litehtml
 		std::tuple<element::ptr, element::ptr, element::ptr> split_inlines();
 		virtual std::shared_ptr<render_item> create_render_item(const std::shared_ptr<render_item>& parent_ri);
 		bool requires_styles_update();
+		void clear_render();
 		void add_render(const std::shared_ptr<render_item>& ri);
 		bool find_styles_changes( position::vector& redraw_boxes);
 		element::ptr add_pseudo_before(const style& style)

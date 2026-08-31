@@ -3,6 +3,7 @@
 // Changes:
 // - Added a custom data member to store event handlers for elements.
 // - Added a method to reset used styles for an element and its children.
+// - Added a method to clear render data for an element and its children.
 
 #include "html.h"
 #include "element.h"
@@ -208,6 +209,15 @@ bool element::requires_styles_update()
 		}
 	}
 	return false;
+}
+
+void element::clear_render() 
+{
+	m_renders.clear();
+	for(auto& child : m_children)
+	{
+		child->clear_render();
+	}
 }
 
 void element::add_render(const std::shared_ptr<render_item>& ri)

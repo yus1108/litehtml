@@ -2,7 +2,7 @@
 // Original file: litehtml/src/document.cpp
 // Changes:
 // - Called create_document() on the container when a document is created.
-// - Added refresh_styles() method to refresh styles on an element and its children.
+// - Added refresh() method to refresh styles and render data of the root element and its children.
 
 #include "html.h"
 #include "document.h"
@@ -1162,22 +1162,37 @@ void document::dump(dumper& cout)
 	}
 }
 
-void document::refresh_styles(std::shared_ptr<element>& element)
+void document::refresh()
 {
 	// reset the previous used styles for the element and its children
-	element->reset_used_styles();
+	m_root->reset_used_styles();
 
 	// apply master CSS
-	element->apply_stylesheet(m_master_css);
+	m_root->apply_stylesheet(m_master_css);
 
 	// Apply parsed styles.
-	element->apply_stylesheet(m_styles);
+	m_root->apply_stylesheet(m_styles);
 
 	// Apply user styles if any
-	element->apply_stylesheet(m_user_css);
-
+	m_root->apply_stylesheet(m_user_css);
 	// Initialize element::m_css
-	element->compute_styles();
-}
+	m_root->compute_styles();
 
+	// Create rendering tree
+	m_root->clear_render();
+	m_root_render = m_root->create_render_item(nullptr);
+
+	// TODO: It's not handled yet, but we should check if the root element is a table and fix the table layout if needed.
+	// Now the m_tabular_elements is filled with tabular elements.
+	// We have to check the tabular elements for missing table elements
+	// and create the anonymous boxes in visual table layout
+	// fix_tables_layout();
+
+	// Finally initialize elements
+	// init() returns pointer to the render_init element because it can change its type
+	if(m_root_render)
+	{
+		m_root_render = m_root_render->init();
+	}
+}
 } // namespace litehtml
